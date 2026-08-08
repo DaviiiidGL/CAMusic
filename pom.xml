@@ -22,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!-- JavaFX (todo vía Maven, sin JAVAFX_HOME) -->
+        <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
