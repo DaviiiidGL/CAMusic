@@ -2,7 +2,7 @@ package co.eia.camusic.camusic.ds.interfaces;
 
 import java.util.List;
 
-public interface PlaylistsStructure<T> {
+public interface PlaylistStructure<T> {
     //Add a new element to the structure
     void add(T element);
 
