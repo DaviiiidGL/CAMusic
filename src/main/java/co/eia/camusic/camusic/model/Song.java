@@ -6,7 +6,7 @@ import java.util.UUID;
 public final class Song {
 
     private final UUID id;
-    private String title;
+    private String name;
     private String artist;
     private String album;
     private int durationSeconds;
@@ -17,7 +17,7 @@ public final class Song {
 
     // Constructor used when creating a new song
     public Song(
-            String title,
+            String name,
             String artist,
             String album,
             int durationSeconds,
@@ -26,14 +26,14 @@ public final class Song {
             int rating,
             String coverPath
     ) {
-        this(UUID.randomUUID(), title, artist, album, durationSeconds,
+        this(UUID.randomUUID(), name, artist, album, durationSeconds,
                 genre, releaseYear, rating, coverPath);
     }
 
     // Constructor used when loading a song
     public Song(
             UUID id,
-            String title,
+            String name,
             String artist,
             String album,
             int durationSeconds,
@@ -45,7 +45,7 @@ public final class Song {
         validateId(id);
         this.id = id;
 
-        setTitle(title);
+        setName(name);
         setArtist(artist);
         setAlbum(album);
         setDurationSeconds(durationSeconds);
@@ -57,7 +57,7 @@ public final class Song {
 
     // Getters
     public UUID getId() {return id;}
-    public String getTitle() {return title;}
+    public String getName() {return name;}
     public String getArtist() {return artist;}
     public String getAlbum() {return album;}
     public int getDurationSeconds() {return durationSeconds;}
@@ -74,7 +74,7 @@ public final class Song {
     }
 
     // Setters
-    public void setTitle(String title) {this.title = normalizeText(title, "title");}
+    public void setName(String name) {this.name = normalizeText(name, "name");}
     public void setArtist(String artist) {this.artist = normalizeText(artist, "artist");}
     public void setAlbum(String album) {this.album = normalizeText(album, "album");}
 
@@ -99,8 +99,8 @@ public final class Song {
     }
 
     // Editing all the info
-    public void updateInfo(String title, String artist, String album, int durationSeconds, String genre, int releaseYear, int rating, String coverPath) {
-        setTitle(title);
+    public void updateInfo(String name, String artist, String album, int durationSeconds, String genre, int releaseYear, int rating, String coverPath) {
+        setName(name);
         setArtist(artist);
         setAlbum(album);
         setDurationSeconds(durationSeconds);
@@ -132,7 +132,7 @@ public final class Song {
     @Override
     public String toString() {
         return "Song{" +
-                "title='" + title + '\'' +
+                "name='" + name + '\'' +
                 ", artist='" + artist + '\'' +
                 ", album='" + album + '\'' +
                 ", duration='" + getFormattedDuration() + '\'' +
