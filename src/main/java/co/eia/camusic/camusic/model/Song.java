@@ -23,11 +23,10 @@ public final class Song {
             int durationSeconds,
             String genre,
             int releaseYear,
-            int rating,
             String coverPath
     ) {
         this(UUID.randomUUID(), name, artist, album, durationSeconds,
-                genre, releaseYear, rating, coverPath);
+                genre, releaseYear, 0, coverPath);
     }
 
     // Constructor used when loading a song
