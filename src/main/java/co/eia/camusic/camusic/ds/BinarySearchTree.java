@@ -10,10 +10,12 @@ import java.util.List;
 public class BinarySearchTree implements PlaylistStructure<Song> {
     private TreeNode<Song> root;
     private int size;
+    private Song currentSong;
 
     public BinarySearchTree() {
         this.root = null;
         this.size = 0;
+        this.currentSong = null;
     }
 
     // PLAYLIST STRUCTURE METHODS
@@ -30,6 +32,10 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
         Song removed = node.getData();
         root = removeNode(root, element);
         size--;
+
+        if(currentSong != null && currentSong.equals(removed)){
+            currentSong = isEmpty() ? null : getFirst();
+        }
         return removed;
     }
 
@@ -52,6 +58,7 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
     public void clear() {
         root = null;
         size = 0;
+        currentSong = null;
     }
 
     @Override
@@ -61,10 +68,55 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
         return songs;
     }
 
+    @Override
+    public Song current() {
+        if(isEmpty()) return null;
+
+        if(currentSong == null || findNode(currentSong) == null) currentSong = getFirst();
+
+        return currentSong;
+    }
+
+    @Override
+    public Song next() {
+        if(isEmpty()) return null;
+
+        if(currentSong == null || findNode(currentSong) == null){
+            currentSong = getFirst();
+            return currentSong;
+        }
+
+        Song successor = successorOf(currentSong);
+
+        currentSong = successor != null ? successor : getFirst();
+
+        return currentSong;
+    }
+
+    @Override
+    public Song previous() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        if (currentSong == null || findNode(currentSong) == null) {
+            currentSong = getLast();
+            return currentSong;
+        }
+
+        Song predecessor = predecessorOf(currentSong);
+
+        currentSong = predecessor != null ? predecessor : getLast();
+
+        return currentSong;
+    }
+
     // TREE METHODS
     public void insert(Song song) {
         validateSong(song);
         root = insertNode(root, song);
+
+        if(currentSong == null) currentSong = song;
     }
 
     public Song find(Song song) {
@@ -220,5 +272,50 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
         int leftHeight = height(current.getLeft());
         int rightHeight = height(current.getRight());
         return Math.max(leftHeight, rightHeight) + 1;
+    }
+
+    private Song successorOf(Song song) {
+        TreeNode<Song> node = findNode(root, song);
+        if (node == null) return null;
+
+        if(node.getRight() != null) return findMinimum(node.getRight()).getData();
+
+        TreeNode<Song> ancestor = root;
+        TreeNode<Song> successor = null;
+
+        while(ancestor != node){
+            int comparison = compareSongs(ancestor.getData(), song);
+
+            if(comparison < 0){
+                successor = ancestor;
+                ancestor = ancestor.getLeft();
+            } else {
+                ancestor = ancestor.getRight();
+            }
+        }
+        return successor == null ? null : successor.getData();
+    }
+
+    private Song predecessorOf(Song song){
+        TreeNode<Song> node = findNode(root, song);
+
+        if(node == null) return null;
+
+        if(node.getLeft() != null) return findMaximum(node.getLeft()).getData();
+
+        TreeNode<Song> ancestor = root;
+        TreeNode<Song> predecessor = null;
+
+        while(ancestor != node){
+            int comparison = compareSongs(ancestor.getData(), song);
+
+            if(comparison > 0){
+                predecessor = ancestor;
+                ancestor = ancestor.getRight();
+            } else {
+                ancestor = ancestor.getLeft();
+            }
+        }
+        return predecessor == null ? null : predecessor.getData();
     }
 }

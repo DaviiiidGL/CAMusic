@@ -107,6 +107,26 @@ public class CircularDoublyLinkedList implements PlaylistStructure<Song> {
         return songs;
     }
 
+    @Override
+    public Song current() {
+        if(isEmpty() || current == null) return null;
+        return current.getData();
+    }
+
+    @Override
+    public Song next() {
+        if(isEmpty() || current == null) return null;
+        current = current.getNext();
+        return current.getData();
+    }
+
+    @Override
+    public Song previous() {
+        if(isEmpty() || current == null) return null;
+        current = current.getPrev();
+        return current.getData();
+    }
+
     // CDLL METHODS
     public void insertFirst(Song song){
         validateSong(song);

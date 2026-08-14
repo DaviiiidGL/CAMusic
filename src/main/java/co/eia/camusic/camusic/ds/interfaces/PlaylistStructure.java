@@ -1,5 +1,7 @@
 package co.eia.camusic.camusic.ds.interfaces;
 
+import co.eia.camusic.camusic.model.Song;
+
 import java.util.List;
 
 public interface PlaylistStructure<T> {
@@ -7,7 +9,7 @@ public interface PlaylistStructure<T> {
     void add(T element);
 
     //Remove a specific element from the structure
-    void remove(T element);
+    Song remove(T element);
 
     // Number of elements currently stored
     int size();
@@ -24,5 +26,7 @@ public interface PlaylistStructure<T> {
     //Returns current elements as a plain list
     List<T> toList();
 
-
+    Song current();
+    Song next();
+    Song previous();
 }
