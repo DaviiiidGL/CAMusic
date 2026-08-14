@@ -105,7 +105,22 @@ public class SimpleQueue implements PlaylistStructure<Song> {
         return songs;
     }
 
-     //FIFO METHODS
+    @Override
+    public Song current() {
+        return peek();
+    }
+
+    @Override
+    public Song next() {
+        return dequeue();
+    }
+
+    @Override
+    public Song previous() {
+        return null;
+    }
+
+    //FIFO METHODS
      public void enqueue(Song song) {
          validateSong(song);
 
