@@ -46,9 +46,9 @@ public class SearchFilterService {
     public List<Song> filterByGenre(String genre) {
         if (genre == null || genre.isBlank()) return libraryService.listAll();
 
-
+        String normalizedGenre = genre.strip();
         return libraryService.listAll().stream()
-                .filter(song -> song.getGenre().equalsIgnoreCase(genre))
+                .filter(song -> song.getGenre().equalsIgnoreCase(normalizedGenre))
                 .collect(Collectors.toList());
     }
 
