@@ -71,10 +71,10 @@ public class PlaybackService {
 
 
         if (currentSong == null) {
-            Song firstSong = activeStructure.current();
-
+            Song firstSong = (currentMode == PlaybackMode.FIFO_QUEUE)
+                    ? activeStructure.next()
+                    : activeStructure.current();
             if (firstSong == null) firstSong = activeStructure.next();
-
             this.currentSong = firstSong;
         }
 
