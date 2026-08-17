@@ -54,9 +54,9 @@ public class SearchFilterService {
 
     public List<Song> filterByAlbum(String album) {
         if (album == null || album.isBlank()) return libraryService.listAll();
-
+        String normalizedAlbum = album.strip();
         return libraryService.listAll().stream()
-                .filter(song -> song.getAlbum().equalsIgnoreCase(album))
+                .filter(song -> song.getAlbum().equalsIgnoreCase(normalizedAlbum))
                 .collect(Collectors.toList());
     }
 
