@@ -13,11 +13,16 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <javafx.version>21.0.2</javafx.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <!-- JDK 25 -->
+        <maven.compiler.release>25</maven.compiler.release>
+
+        <!-- Todas las dependencias JavaFX deben usar la misma versión -->
+        <javafx.version>25</javafx.version>
         <gson.version>2.11.0</gson.version>
-        <!-- Ajusta esto si cambias el paquete -->
+
+        <!-- Clase principal -->
         <mainClass>co.eia.camusic.camusic.MainApp</mainClass>
     </properties>
 
@@ -28,11 +33,13 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
@@ -49,26 +56,33 @@
 
     <build>
         <plugins>
-            <!-- Compilador -->
+            <!-- Compilación para JDK 25 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.15.0</version>
                 <configuration>
-                    <source>21</source>
-                    <target>21</target>
+                    <release>${maven.compiler.release}</release>
+                    <showWarnings>true</showWarnings>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
-            <!-- ÚNICO plugin para ejecutar JavaFX -->
+            <!-- Ejecución de JavaFX -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
+                    <options>
+                        <option>--enable-native-access=javafx.graphics,javafx.media,javafx.web</option>
+                    </options>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
 </project>
