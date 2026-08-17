@@ -37,9 +37,9 @@ public class SearchFilterService {
     public List<Song> filterByArtist(String artist) {
         if (artist == null || artist.isBlank()) return libraryService.listAll();
 
-
+        String normalizedArtist = artist.strip();
         return libraryService.listAll().stream()
-                .filter(song -> song.getArtist().equalsIgnoreCase(artist))
+                .filter(song -> song.getArtist().equalsIgnoreCase(normalizedArtist))
                 .collect(Collectors.toList());
     }
 
