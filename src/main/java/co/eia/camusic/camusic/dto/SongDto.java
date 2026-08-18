@@ -2,6 +2,8 @@ package co.eia.camusic.camusic.dto;
 
 import co.eia.camusic.camusic.model.Song;
 
+import java.util.UUID;
+
 public class SongDto {
     private String id;
     private String name;
@@ -63,4 +65,17 @@ public class SongDto {
 
     public String getCoverPath() {return coverPath;}
     public void setCoverPath(String coverPath) {this.coverPath = coverPath;}
+
+    public Song toSong() {
+        if (id == null || id.isBlank()) throw new IllegalArgumentException("Song ID cannot be null or blank");
+
+        final UUID songId;
+
+        try {
+            songId = UUID.fromString(id);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Song ID is not a valid UUID: " + id, exception);
+        }
+
+        return new Song(songId, name, artist, album, durationSeconds, genre, releaseYear, rating, coverPath);}
 }

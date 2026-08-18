@@ -4,6 +4,7 @@ import co.eia.camusic.camusic.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class LibraryService {
 
@@ -71,5 +72,25 @@ public class LibraryService {
 
     public void clear() {
         songs.clear();
+    }
+
+    public void loadAll(List<Song> loadedSongs) {
+        if (loadedSongs == null) throw new IllegalArgumentException("Songs cannot be null");
+
+        List<Song> loadedCopy = new ArrayList<>(loadedSongs);
+
+        if (loadedCopy.stream().anyMatch(Objects::isNull)) throw new IllegalArgumentException("Songs cannot contain null elements");
+
+        List<Song> newSongs = new ArrayList<>();
+
+        for (Song song : loadedCopy) {
+            boolean alreadyExists = newSongs.stream().anyMatch(existing -> existing.getId().equals(song.getId()));
+
+            if (alreadyExists) throw new IllegalArgumentException("Duplicate song ID: " + song.getId());
+            newSongs.add(song);
+        }
+
+        songs.clear();
+        songs.addAll(newSongs);
     }
 }
