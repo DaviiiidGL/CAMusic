@@ -1,0 +1,9 @@
+/* Tonos arena y desierto */
+html[data-theme="camel"] {
+    --color-bg: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    --color-surface: rgba(230, 213, 184, 0.45); /* Arena translúcida */
+    --color-border: rgba(212, 163, 115, 0.3);
+    --color-text: #5c4033; /* Marrón oscuro */
+    --color-btn: rgba(212, 163, 115, 0.5);
+    --color-btn-hover: rgba(212, 163, 115, 0.8);
+}

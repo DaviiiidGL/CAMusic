@@ -1,17 +1,74 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="camel">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAMusic</title>
+    <title>Camellos vs Enanos Player</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/theme-light-camel.css">
+    <link rel="stylesheet" href="css/theme-dark-dwarf.css">
+
+    <!-- Scripts con defer para que carguen después del HTML -->
+    <script src="js/theme.js" defer></script>
+    <script src="js/app.js" defer></script>
 </head>
-<body>
-<h1>¡Fase 6: Puente Java-JS!</h1>
-<p>Si la conexión funciona, al hacer clic en el botón, Java responderá.</p>
+<body class="app-layout">
 
-<button onclick="testPing()">Probar Ping</button>
-<h3 id="resultado" style="color: #2e7d32;"></h3>
+<!-- Encabezado superior -->
+<header class="glass-panel main-header">
+    <h1>🐫 Carreras Legendarias 🧔🏻‍♂️</h1>
+    <button id="toggle-theme-btn" class="btn" onclick="toggleTheme()">⛏️ Modo Enano</button>
+</header>
 
-<script src="js/app.js"></script>
+<!-- Barra lateral -->
+<aside class="glass-panel sidebar">
+    <nav>
+        <ul style="list-style: none;">
+            <li><button class="btn w-100 active">Biblioteca</button></li>
+            <li><button class="btn w-100">Favoritas</button></li>
+            <li><button class="btn w-100">Historial</button></li>
+        </ul>
+    </nav>
+</aside>
+
+<!-- Contenido Principal -->
+<main class="main-content">
+    <!-- Contenedor vacío para listar canciones -->
+    <section id="library-list" class="glass-panel card flex-grow">
+        <!-- JS inyectará la tabla/lista aquí -->
+        <p>La biblioteca está vacía.</p>
+    </section>
+
+    <!-- Contenedor vacío para visualizar la estructura de datos -->
+    <section id="structure-view" class="glass-panel card">
+        <!-- JS dibujará la lista circular, cola o árbol aquí -->
+    </section>
+
+    <!-- Panel Inferior: Controles y Canción Actual -->
+    <section id="current-song-panel" class="glass-panel player-controls-panel">
+        <div class="song-info">
+            <h3>Sin reproducir</h3>
+            <p>---</p>
+        </div>
+
+        <div class="transport-controls">
+            <button class="btn">⏮</button>
+            <button class="btn">▶</button>
+            <button class="btn">⏭</button>
+        </div>
+
+        <!-- Contenedor vacío para el selector de modo -->
+        <div id="mode-selector">
+            <select class="btn">
+                <option value="RANDOM_CIRCULAR">Aleatorio (Circular)</option>
+                <option value="FIFO_QUEUE">Llegada (Cola)</option>
+                <option value="ALPHABETICAL_BST">Alfabético (Árbol)</option>
+            </select>
+        </div>
+    </section>
+</main>
+
 </body>
 </html>

@@ -98,7 +98,7 @@ public class MainApp extends Application {
 
     private void loadFrontend() {
         URL htmlUrl = getClass()
-                .getResource("web/index.html");
+                .getResource("/web/index.html");
 
         if (htmlUrl == null) {
             LOGGER.severe(
