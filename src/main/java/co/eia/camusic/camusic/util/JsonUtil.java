@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class JsonUtil {
-    //GSON RAZÓN
+    //Google Json, GSON traduce
     private static final Gson GSON = new GsonBuilder().create();
 
     public static String toJson(Object obj) {
