@@ -72,4 +72,13 @@ public class LibraryService {
     public void clear() {
         songs.clear();
     }
+
+    public void loadAll(List<Song> loadedSongs) {
+        if (loadedSongs == null) {
+            throw new IllegalArgumentException("Songs cannot be null");
+        }
+
+        songs.clear();
+        loadedSongs.forEach(this::addSong);
+    }
 }

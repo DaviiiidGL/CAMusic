@@ -2,6 +2,8 @@ package co.eia.camusic.camusic.dto;
 
 import co.eia.camusic.camusic.model.Song;
 
+import java.util.UUID;
+
 public class SongDto {
     private String id;
     private String name;
@@ -63,4 +65,6 @@ public class SongDto {
 
     public String getCoverPath() {return coverPath;}
     public void setCoverPath(String coverPath) {this.coverPath = coverPath;}
+
+    public Song toSong() {return new Song(UUID.fromString(id), name, artist, album, durationSeconds, genre, releaseYear, rating, coverPath);}
 }
