@@ -13,6 +13,11 @@
     <!-- Scripts con defer para que carguen después del HTML -->
     <script src="js/theme.js" defer></script>
     <script src="js/app.js" defer></script>
+
+    <!-- Scripts con defer para que carguen después del HTML -->
+    <script src="js/api.js" defer></script>
+    <script src="js/ui-library.js" defer></script>
+</head>
 </head>
 <body class="app-layout">
 
@@ -69,6 +74,35 @@
         </div>
     </section>
 </main>
+
+<!-- Modal Formularios Glass -->
+<div id="song-modal" class="modal-overlay glass-panel" style="display: none;">
+    <div class="modal-content card glass-panel">
+        <h2 id="modal-title">Agregar Canción</h2>
+        <form id="song-form" onsubmit="UILibrary.handleFormSubmit(event)">
+            <input type="hidden" id="song-id">
+
+            <input type="text" id="song-name" placeholder="🎵 Nombre (Obligatorio)" class="glass-input" required>
+            <input type="text" id="song-artist" placeholder="👤 Artista (Obligatorio)" class="glass-input" required>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="song-album" placeholder="Álbum" class="glass-input">
+                <input type="text" id="song-genre" placeholder="Género" class="glass-input">
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="song-duration" placeholder="Duración (seg)" class="glass-input">
+                <input type="number" id="song-year" placeholder="Año" class="glass-input">
+                <input type="number" id="song-rating" placeholder="⭐ Rating (0-100)" class="glass-input" min="0" max="100">
+            </div>
+
+            <div class="modal-actions" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 15px;">
+                <button type="button" class="btn" onclick="UILibrary.closeModal()">Cancelar</button>
+                <button type="submit" class="btn">Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>
