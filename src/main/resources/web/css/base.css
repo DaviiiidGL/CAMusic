@@ -100,3 +100,25 @@ body {
     justify-content: space-between;
     align-items: center;
 }
+
+/* --- Modal Formularios (Fase 8) --- */
+.modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.4); z-index: 1000;
+    display: flex; justify-content: center; align-items: center;
+    border-radius: 0; backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    width: 450px; background: var(--color-surface);
+    display: flex; flex-direction: column; gap: var(--spacing-4);
+}
+
+.glass-input {
+    background: transparent;
+    border: 1px solid var(--color-border); color: var(--color-text);
+    padding: var(--spacing-3); border-radius: var(--radius-sm);
+    width: 100%; margin-bottom: var(--spacing-2); outline: none;
+}
+.glass-input::placeholder { color: var(--color-text); opacity: 0.6; }
+.glass-input:focus { border-color: var(--color-text); }
