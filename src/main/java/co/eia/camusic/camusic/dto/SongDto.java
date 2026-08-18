@@ -66,5 +66,16 @@ public class SongDto {
     public String getCoverPath() {return coverPath;}
     public void setCoverPath(String coverPath) {this.coverPath = coverPath;}
 
-    public Song toSong() {return new Song(UUID.fromString(id), name, artist, album, durationSeconds, genre, releaseYear, rating, coverPath);}
+    public Song toSong() {
+        if (id == null || id.isBlank()) throw new IllegalArgumentException("Song ID cannot be null or blank");
+
+        final UUID songId;
+
+        try {
+            songId = UUID.fromString(id);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Song ID is not a valid UUID: " + id, exception);
+        }
+
+        return new Song(songId, name, artist, album, durationSeconds, genre, releaseYear, rating, coverPath);}
 }

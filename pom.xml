@@ -9,24 +9,28 @@
     <groupId>co.eia.camusic</groupId>
     <artifactId>camusic</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <name>CAMusic</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- JDK 25 -->
         <maven.compiler.release>25</maven.compiler.release>
 
-        <!-- Todas las dependencias JavaFX deben usar la misma versión -->
         <javafx.version>25</javafx.version>
         <gson.version>2.11.0</gson.version>
+        <junit.version>5.13.4</junit.version>
 
-        <!-- Clase principal -->
+        <maven.compiler.plugin.version>3.15.0</maven.compiler.plugin.version>
+        <maven.surefire.plugin.version>3.5.3</maven.surefire.plugin.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+
         <mainClass>co.eia.camusic.camusic.MainApp</mainClass>
     </properties>
 
     <dependencies>
+
         <!-- JavaFX -->
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -42,6 +46,12 @@
 
         <dependency>
             <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
             <version>${javafx.version}</version>
         </dependency>
@@ -52,17 +62,31 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+
+        <!-- Tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Compilación para JDK 25 -->
+
+            <!-- Compilación Java 25 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.15.0</version>
+                <version>
+                    ${maven.compiler.plugin.version}
+                </version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <release>
+                        ${maven.compiler.release}
+                    </release>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-Xlint:unchecked</arg>
@@ -70,18 +94,35 @@
                 </configuration>
             </plugin>
 
+            <!-- Ejecución de tests JUnit 5 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>
+                    ${maven.surefire.plugin.version}
+                </version>
+                <configuration>
+                    <useModulePath>false</useModulePath>
+                </configuration>
+            </plugin>
+
             <!-- Ejecución de JavaFX -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+                <version>
+                    ${javafx.maven.plugin.version}
+                </version>
                 <configuration>
                     <mainClass>${mainClass}</mainClass>
                     <options>
-                        <option>--enable-native-access=javafx.graphics,javafx.media,javafx.web</option>
+                        <option>
+                            --enable-native-access=javafx.graphics,javafx.media,javafx.web
+                        </option>
                     </options>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

@@ -9,21 +9,31 @@ import java.time.Instant;
 public final class JsonUtil {
 
     private static final Gson GSON = new GsonBuilder()
-            .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+            .registerTypeAdapter(
+                    Instant.class,
+                    new InstantTypeAdapter()
+            )
             .setPrettyPrinting()
             .create();
 
-    private JsonUtil() {}
+    private JsonUtil() {
+    }
 
     public static String toJson(Object obj) {
         return GSON.toJson(obj);
     }
 
-    public static <T> T fromJson(String json, Class<T> clazz) {
+    public static <T> T fromJson(
+            String json,
+            Class<T> clazz
+    ) {
         return GSON.fromJson(json, clazz);
     }
 
-    public static <T> T fromJson(String json, Type type) {
+    public static <T> T fromJson(
+            String json,
+            Type type
+    ) {
         return GSON.fromJson(json, type);
     }
 }
