@@ -1,0 +1,9 @@
+/* Tonos de cueva y piedra */
+html[data-theme="dwarf"] {
+    --color-bg: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+    --color-surface: rgba(43, 43, 43, 0.6); /* Piedra translúcida */
+    --color-border: rgba(252, 163, 17, 0.2);
+    --color-text: #e8e8e8; /* Gris claro */
+    --color-btn: rgba(252, 163, 17, 0.2);
+    --color-btn-hover: rgba(252, 163, 17, 0.5); /* Oro enano */
+}
