@@ -283,10 +283,10 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
         TreeNode<Song> ancestor = root;
         TreeNode<Song> successor = null;
 
-        while(ancestor != node){
+        while(ancestor != null && ancestor != node){
             int comparison = compareSongs(ancestor.getData(), song);
 
-            if(comparison < 0){
+            if(comparison > 0){
                 successor = ancestor;
                 ancestor = ancestor.getLeft();
             } else {
@@ -298,7 +298,6 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
 
     private Song predecessorOf(Song song){
         TreeNode<Song> node = findNode(root, song);
-
         if(node == null) return null;
 
         if(node.getLeft() != null) return findMaximum(node.getLeft()).getData();
@@ -306,10 +305,10 @@ public class BinarySearchTree implements PlaylistStructure<Song> {
         TreeNode<Song> ancestor = root;
         TreeNode<Song> predecessor = null;
 
-        while(ancestor != node){
+        while(ancestor != null && ancestor != node){
             int comparison = compareSongs(ancestor.getData(), song);
 
-            if(comparison > 0){
+            if(comparison < 0){
                 predecessor = ancestor;
                 ancestor = ancestor.getRight();
             } else {

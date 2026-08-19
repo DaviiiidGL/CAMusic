@@ -114,14 +114,18 @@ const UILibrary = {
             rating: rating
         };
 
+        let result;
         if (id) {
-            API.editSong(id, songData);
+            result = API.editSong(id, songData);
         } else {
-            API.addSong(songData);
+            result = API.addSong(songData);
         }
 
-        this.closeModal();
-        this.loadAndRender(); // Java es la fuente de verdad, recargamos directo del servidor
+        // ¡ATENCIÓN AQUÍ! Solo cerramos y recargamos si Java nos dio un OK
+        if (result) {
+            this.closeModal();
+            this.loadAndRender();
+        }
     },
 
     handleDelete: function(songId) {

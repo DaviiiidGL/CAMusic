@@ -16,7 +16,8 @@ public class SongDto {
     private int rating;
     private String coverPath;
 
-    public SongDto() {}
+    public SongDto() {
+    }
 
     public static SongDto fromSong(Song song) {
         if (song == null) return null;
@@ -36,46 +37,97 @@ public class SongDto {
         return dto;
     }
 
-    public String getId() {return id;}
-    public void setId(String id) {this.id = id;}
+    public String getId() {
+        return id;
+    }
 
-    public String getName() {return name;}
-    public void setName(String name) {this.name = name;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getArtist() {return artist;}
-    public void setArtist(String artist) {this.artist = artist;}
+    public String getName() {
+        return name;
+    }
 
-    public String getAlbum() {return album;}
-    public void setAlbum(String album) {this.album = album;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public int getDurationSeconds() {return durationSeconds;}
-    public void setDurationSeconds(int durationSeconds) {this.durationSeconds = durationSeconds;}
+    public String getArtist() {
+        return artist;
+    }
 
-    public String getFormattedDuration() {return formattedDuration;}
-    public void setFormattedDuration(String formattedDuration) {this.formattedDuration = formattedDuration;}
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
-    public String getGenre() {return genre;}
-    public void setGenre(String genre) {this.genre = genre;}
+    public String getAlbum() {
+        return album;
+    }
 
-    public int getReleaseYear() {return releaseYear;}
-    public void setReleaseYear(int releaseYear) {this.releaseYear = releaseYear;}
+    public void setAlbum(String album) {
+        this.album = album;
+    }
 
-    public int getRating() {return rating;}
-    public void setRating(int rating) {this.rating = rating;}
+    public int getDurationSeconds() {
+        return durationSeconds;
+    }
 
-    public String getCoverPath() {return coverPath;}
-    public void setCoverPath(String coverPath) {this.coverPath = coverPath;}
+    public void setDurationSeconds(int durationSeconds) {
+        this.durationSeconds = durationSeconds;
+    }
+
+    public String getFormattedDuration() {
+        return formattedDuration;
+    }
+
+    public void setFormattedDuration(String formattedDuration) {
+        this.formattedDuration = formattedDuration;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    public String getCoverPath() {
+        return coverPath;
+    }
+
+    public void setCoverPath(String coverPath) {
+        this.coverPath = coverPath;
+    }
 
     public Song toSong() {
-        if (id == null || id.isBlank()) throw new IllegalArgumentException("Song ID cannot be null or blank");
-
-        final UUID songId;
-
-        try {
-            songId = UUID.fromString(id);
-        } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException("Song ID is not a valid UUID: " + id, exception);
-        }
-
-        return new Song(songId, name, artist, album, durationSeconds, genre, releaseYear, rating, coverPath);}
+        return new Song(
+                java.util.UUID.fromString(this.id),
+                this.name,
+                this.artist,
+                this.album,
+                this.durationSeconds,
+                this.genre,
+                this.releaseYear,
+                this.rating,
+                this.coverPath
+        );
+    }
 }
