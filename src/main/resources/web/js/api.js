@@ -1,57 +1,47 @@
 // src/main/resources/web/js/api.js
-
 const API = {
-    // Wrapper centralizado de parseo y errores
     call: function(javaAction) {
         try {
-            if (!window.javaBridge) throw new Error("Puente Java no inyectado");
-
-            const responseString = javaAction();
-            const response = JSON.parse(responseString);
-
-            if (!response.success) {
-                console.error("[API] Java reportó un error:", response.error);
-                alert("Error: " + response.error);
+            if (!window.javaBridge) {
+                console.warn("[API] javaBridge aún no disponible.");
                 return null;
             }
+
+            const responseString = javaAction();
+            if (!responseString) return null;
+
+            const response = JSON.parse(responseString);
+
+            // Si es un Array directo o un objeto sin la bandera 'success', es respuesta cruda válida
+            if (Array.isArray(response) || response.success === undefined) {
+                return response;
+            }
+
+            // Si viene envuelto y falló
+            if (response.success === false) {
+                console.error("[API] Error desde Java:", response.error);
+                alert("Error de Java: " + (response.error || "Operación no completada"));
+                return null;
+            }
+
             return response.data;
         } catch (e) {
-            console.error("[API] Fallo crítico de comunicación:", e);
-            alert("Hubo un problema de conexión con el núcleo de Java.");
+            console.error("[API] Error de comunicación:", e);
             return null;
         }
     },
 
-    // 1. Listar (Read)
+    // Fase 8 - Biblioteca CRUD
     getLibrary: () => API.call(() => window.javaBridge.getLibrary()),
-
-    // 2. Crear (Create)
     addSong: (songData) => API.call(() => window.javaBridge.addSong(JSON.stringify(songData))),
-
-    // 3. Actualizar (Update)
     editSong: (id, songData) => API.call(() => window.javaBridge.editSong(id, JSON.stringify(songData))),
-
-    // 4. Eliminar (Delete)
     deleteSong: (id) => API.call(() => window.javaBridge.deleteSong(id)),
 
-    // 5. Búsqueda (Filtro local rápido usando la lista de Java)
-    searchSongs: (query) => {
-        const allSongs = API.getLibrary() || [];
-        if (!query) return allSongs;
-        const q = query.toLowerCase();
-        return allSongs.filter(song =>
-            song.name.toLowerCase().includes(q) ||
-            song.artist.toLowerCase().includes(q)
-        );
-    },
-
-    // 6. Filtros Complejos
-    filterSongs: (criteria) => {
-        const allSongs = API.getLibrary() || [];
-        return allSongs.filter(song => {
-            if (criteria.genre && song.genre !== criteria.genre) return false;
-            if (criteria.minRating && song.rating < criteria.minRating) return false;
-            return true;
-        });
-    }
+    // Fase 9 - Reproducción y Modos
+    getPlaybackState: () => API.call(() => window.javaBridge.getPlaybackState()),
+    play: () => API.call(() => window.javaBridge.play()),
+    pause: () => API.call(() => window.javaBridge.pause()),
+    nextSong: () => API.call(() => window.javaBridge.nextSong()),
+    previousSong: () => API.call(() => window.javaBridge.previousSong()),
+    switchMode: (mode) => API.call(() => window.javaBridge.switchMode(mode))
 };

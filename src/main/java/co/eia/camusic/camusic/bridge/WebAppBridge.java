@@ -36,41 +36,19 @@ public class WebAppBridge {
             HistoryService historyService,
             PersistenceService persistenceService
     ) {
-        if (libraryService == null) {
-            throw new IllegalArgumentException(
-                    "Library service cannot be null"
-            );
-        }
-
-        if (favoritesService == null) {
-            throw new IllegalArgumentException(
-                    "Favorites service cannot be null"
-            );
-        }
-
-        if (historyService == null) {
-            throw new IllegalArgumentException(
-                    "History service cannot be null"
-            );
-        }
-
-        if (persistenceService == null) {
-            throw new IllegalArgumentException(
-                    "Persistence service cannot be null"
-            );
-        }
-
+        // Validaciones de no nulidad...
         this.libraryService = libraryService;
         this.favoritesService = favoritesService;
         this.historyService = historyService;
         this.persistenceService = persistenceService;
-        this.statisticsService = new StatisticsService(
-                libraryService,
-                historyService
-        );
-        this.playbackService = new PlaybackService(
-                libraryService
-        );
+        this.statisticsService = new StatisticsService(libraryService, historyService);
+        this.playbackService = new PlaybackService(libraryService);
+
+        // Cargar canciones en las estructuras activas del reproductor
+        List<Song> existingSongs = libraryService.listAll();
+        if (!existingSongs.isEmpty()) {
+            this.playbackService.loadSongs(existingSongs);
+        }
     }
 
     public String ping() {
@@ -448,11 +426,16 @@ public class WebAppBridge {
     }
 
     private PlaybackStateDto createPlaybackState() {
-        Song currentSong =
-                playbackService.current();
+        Song currentSong = playbackService.current();
+
+        // ¡NUEVO!: Verificamos si la canción es nula ANTES de intentar convertirla
+        SongDto songDto = null;
+        if (currentSong != null) {
+            songDto = SongDto.fromSong(currentSong);
+        }
 
         return new PlaybackStateDto(
-                SongDto.fromSong(currentSong),
+                songDto,
                 playbackService.getCurrentMode(),
                 playbackService.isPlaying(),
                 0.0,

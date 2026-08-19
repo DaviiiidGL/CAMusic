@@ -59,7 +59,16 @@ public class PlaybackService {
 
         List<Song> allSongs = libraryService.listAll();
 
-        for (Song song : allSongs) activeStructure.add(song);
+        for (Song song : allSongs) {
+            activeStructure.add(song);
+        }
+
+        // 🌟 ¡EL ARREGLO MAGICO! Seleccionamos la primera canción por defecto al cargar
+        if (!activeStructure.isEmpty()) {
+            this.currentSong = activeStructure.current();
+        } else {
+            this.currentSong = null;
+        }
     }
 
     public Song current() {
@@ -68,7 +77,6 @@ public class PlaybackService {
 
     public void play() {
         if (activeStructure == null) return;
-
 
         if (currentSong == null) {
             Song firstSong = (currentMode == PlaybackMode.FIFO_QUEUE)
@@ -105,7 +113,6 @@ public class PlaybackService {
     public Song previous() {
         if (currentMode == PlaybackMode.FIFO_QUEUE) return null;
 
-
         if (activeStructure == null) return null;
 
         Song prevSong = activeStructure.previous();
@@ -129,9 +136,16 @@ public class PlaybackService {
 
         activeStructure.clear();
 
-        for (Song song : songs) activeStructure.add(song);
+        for (Song song : songs) {
+            activeStructure.add(song);
+        }
 
-        this.currentSong = null;
+        if (!activeStructure.isEmpty()) {
+            this.currentSong = activeStructure.current();
+        } else {
+            this.currentSong = null;
+        }
+
         this.playing = false;
     }
 

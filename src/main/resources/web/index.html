@@ -52,25 +52,32 @@
     </section>
 
     <!-- Panel Inferior: Controles y Canción Actual -->
-    <section id="current-song-panel" class="glass-panel player-controls-panel">
-        <div class="song-info">
-            <h3>Sin reproducir</h3>
-            <p>---</p>
+    <section id="current-song-panel" class="glass-panel player-controls-panel" style="flex-direction: column; gap: 10px;">
+        <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <div class="song-info" style="width: 30%;">
+                <h3 id="player-title" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Sin reproducir</h3>
+                <p id="player-artist" style="opacity: 0.8; font-size: 0.9em;">---</p>
+            </div>
+
+            <div class="transport-controls" style="display: flex; gap: 10px;">
+                <!-- Conectamos los botones a UIPlayer -->
+                <button class="btn" id="btn-prev" onclick="UIPlayer.previous()">⏮</button>
+                <button class="btn" id="btn-play" onclick="UIPlayer.togglePlay()">▶</button>
+                <button class="btn" id="btn-next" onclick="UIPlayer.next()">⏭</button>
+            </div>
+
+            <div id="mode-container" style="width: 30%; text-align: right;">
+                <select class="btn" id="mode-selector" onchange="UIPlayer.onModeChange(event)">
+                    <option value="RANDOM_CIRCULAR">Aleatorio (Circular)</option>
+                    <option value="FIFO_QUEUE">Llegada (Cola)</option>
+                    <option value="ALPHABETICAL_BST">Alfabético (Árbol)</option>
+                </select>
+            </div>
         </div>
 
-        <div class="transport-controls">
-            <button class="btn">⏮</button>
-            <button class="btn">▶</button>
-            <button class="btn">⏭</button>
-        </div>
-
-        <!-- Contenedor vacío para el selector de modo -->
-        <div id="mode-selector">
-            <select class="btn">
-                <option value="RANDOM_CIRCULAR">Aleatorio (Circular)</option>
-                <option value="FIFO_QUEUE">Llegada (Cola)</option>
-                <option value="ALPHABETICAL_BST">Alfabético (Árbol)</option>
-            </select>
+        <!-- Barra de progreso simulada -->
+        <div style="width: 100%; height: 6px; background: rgba(0,0,0,0.1); border-radius: 3px; overflow: hidden;">
+            <div id="progress-bar" style="width: 0%; height: 100%; background: var(--color-btn-hover); transition: width 0.5s linear;"></div>
         </div>
     </section>
 </main>
@@ -103,6 +110,10 @@
         </form>
     </div>
 </div>
-
+<script src="js/theme.js" defer></script>
+<script src="js/api.js" defer></script>
+<script src="js/ui-library.js" defer></script>
+<script src="js/ui-player.js" defer></script>
+<script src="js/app.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "c74c7427-172e-47c5-a1ed-17be4c994bf5",
+    "name": "aaaaa",
+    "artist": "dddddd",
+    "album": "adadad",
+    "durationSeconds": 233,
+    "formattedDuration": "03:53",
+    "genre": "adadad",
+    "releaseYear": 2015,
+    "rating": 0
+  },
+  {
+    "id": "ed3d201b-e7a8-49dd-858a-a96c226feae1",
+    "name": "Viento",
+    "artist": "Caifanes",
+    "album": "La Célula que Explota",
+    "durationSeconds": 432,
+    "formattedDuration": "07:12",
+    "genre": "Rock",
+    "releaseYear": 2000,
+    "rating": 0
+  },
+  {
+    "id": "7a785a49-7905-4f44-b177-16275742df2b",
+    "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAH",
+    "artist": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH",
+    "album": "AAAAAAAAAH",
+    "durationSeconds": 4444,
+    "formattedDuration": "74:04",
+    "genre": "AAAAAAAAAAAAAH",
+    "releaseYear": 1444,
+    "rating": 0
+  }
+]
